@@ -30,3 +30,11 @@ C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.ap
 C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\obj\Debug\openvpn.api.csprojResolveAssemblyReference.cache
 C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\obj\Debug\openvpn.api.dll
 C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\obj\Debug\openvpn.api.pdb
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\openvpn.api.common.dll
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\openvpn.api.core.dll
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\Raven.Client.Lightweight.dll
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\Raven.Abstractions.dll
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\openvpn.api.common.pdb
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\openvpn.api.core.pdb
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\Raven.Client.Lightweight.xml
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api\bin\Raven.Abstractions.xml

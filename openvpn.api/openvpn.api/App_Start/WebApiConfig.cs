@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using openvpn.api.core.formatters;
 
 namespace openvpn.api
 {
@@ -19,6 +20,9 @@ namespace openvpn.api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // make sure browsers get JSON without compromising content negotiation from clients that actually want XML.
+            config.Formatters.Add(new BrowserJsonFormatter());
         }
     }
 }
