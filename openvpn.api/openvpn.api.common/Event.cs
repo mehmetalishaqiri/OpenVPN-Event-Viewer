@@ -25,6 +25,11 @@ namespace openvpn.api.common
         /// <summary>
         /// 
         /// </summary>
+        public string VpnServer { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string CommonName { get; set; }
         
 
