@@ -1,0 +1,5 @@
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api.core\bin\Debug\openvpn.api.core.dll
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api.core\bin\Debug\openvpn.api.core.pdb
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api.core\obj\Debug\openvpn.api.core.csprojResolveAssemblyReference.cache
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api.core\obj\Debug\openvpn.api.core.dll
+C:\Users\mehmetali.shaqiri\Documents\openvpn-time-tracker\openvpn.api\openvpn.api.core\obj\Debug\openvpn.api.core.pdb
