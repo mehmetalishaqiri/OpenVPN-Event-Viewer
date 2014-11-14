@@ -8,6 +8,11 @@ OpenVPN  is  tightly  bound to the OpenSSL library, and derives much of its cryp
 
 OpenVPN Time Tracker helps you
 
+###--client-connect script ### - Run script on client connection
+###--client-disconnect ###– Run script on client instance shutdown.
+
+
+
 ### Tech Stack ###
 
 * Asp.NET Web API
