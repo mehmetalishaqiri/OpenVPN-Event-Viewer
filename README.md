@@ -14,6 +14,7 @@ OpenVPN Event Viewer offers a human readable format of the open vpn connection l
  OpenVPN allows any option to be placed either on the command line or in a configuration file. To intercept the client's connection and disconnections we have to use the following options:
 
 **--client-connect** - Run script on client connection
+
 **--client-disconnect** – Run script on client instance shutdown.
 
 For this to work, you have to add the following lines in you openvpn server config file:
