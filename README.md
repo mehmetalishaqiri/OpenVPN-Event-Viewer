@@ -8,8 +8,22 @@ OpenVPN  is  tightly  bound to the OpenSSL library, and derives much of its cryp
 
 OpenVPN Event Viewer offers a human readable format of the open vpn connection logs.
 
+
+### How does it work?###
+
+ OpenVPN allows any option to be placed either on the command line or in a configuration file. To intercept the client's connection and disconnections we have to use the following options:
+
 ###--client-connect script ### - Run script on client connection
 ###--client-disconnect ###– Run script on client instance shutdown.
+
+For this to work, you have to add the following lines in you openvpn server config file:
+
+script-security 2
+
+--client-connect "client-connect.bat"
+
+--client-disconnect "client-disconnect.bat"
+
 
 
 ### Tech Stack ###
