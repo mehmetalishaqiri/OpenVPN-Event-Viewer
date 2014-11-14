@@ -4,13 +4,12 @@ OpenVPN  is  a robust and highly flexible VPN daemon.  OpenVPN supports  SSL/TLS
 
 OpenVPN  is  tightly  bound to the OpenSSL library, and derives much of its crypto capabilities from it.
 
-### What is OpenVPN Time Tracker?###
+### What is OpenVPN Event Viewer?###
 
-OpenVPN Time Tracker helps you
+OpenVPN Event Viewer offers a human readable format of the open vpn connection logs.
 
 ###--client-connect script ### - Run script on client connection
 ###--client-disconnect ###– Run script on client instance shutdown.
-
 
 
 ### Tech Stack ###
