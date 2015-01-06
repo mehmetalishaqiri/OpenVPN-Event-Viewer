@@ -22,26 +22,27 @@
     SOFTWARE. 
  */
 
+using System.Threading.Tasks;
+using openvpn.api.common.domain;
+using openvpn.api.core.controllers;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
-
-
-using System;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
-
-namespace openvpn.api.core.formatters
+namespace openvpn.api.Controllers
 {
-    public class BrowserJsonFormatter : JsonMediaTypeFormatter
+    public class EventsController : RavenDbApiController
     {
-        public BrowserJsonFormatter()
+        /// <summary>
+        /// Store open vpn event in RavenDb document store.
+        /// </summary>
+        /// <param name="eventModel">The event model passed by open vpn client connect/disconnect</param>
+        /// <returns></returns>
+        public async Task<HttpResponseMessage> Post([FromBody]Event eventModel)
         {
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-        }
+            await Session.StoreAsync(eventModel);
 
-        public override void SetDefaultContentHeaders(Type type, HttpContentHeaders headers, MediaTypeHeaderValue mediaType)
-        {
-            base.SetDefaultContentHeaders(type, headers, mediaType);
-            headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
     }
 }

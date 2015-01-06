@@ -22,26 +22,12 @@
     SOFTWARE. 
  */
 
-
-
-
-using System;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
-
-namespace openvpn.api.core.formatters
+namespace openvpn.api.common.domain
 {
-    public class BrowserJsonFormatter : JsonMediaTypeFormatter
+    public enum EventType
     {
-        public BrowserJsonFormatter()
-        {
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-        }
+        Connect = 1,
 
-        public override void SetDefaultContentHeaders(Type type, HttpContentHeaders headers, MediaTypeHeaderValue mediaType)
-        {
-            base.SetDefaultContentHeaders(type, headers, mediaType);
-            headers.ContentType = new MediaTypeHeaderValue("application/json");
-        }
+        Disconnect = 2
     }
 }

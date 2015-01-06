@@ -1,31 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api.common", "openvpn.api.common\openvpn.api.common.csproj", "{270ECCFF-4B1A-4513-B3A6-6AEECC6C058A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api.common", "openvpn.api.common\openvpn.api.common.csproj", "{4A28B024-F22B-4727-94E1-55198576763F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{9A019C40-F991-4333-8F2B-EA24541D8B75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api.core", "openvpn.api.core\openvpn.api.core.csproj", "{27505B8C-8557-407E-856E-0950559FC92D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{33D5556A-B480-4F0C-B30F-AD7DBDEFFD6C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api", "openvpn.api\openvpn.api.csproj", "{386DDBEC-02F0-498C-B829-6581090AE31A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api.Tests", "openvpn.api.Tests\openvpn.api.Tests.csproj", "{475888FA-F1EE-4AC2-B3C1-AF26AA2FFD8A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{58805446-3B5B-4760-A03F-0650234ABDD0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api.core", "openvpn.api.core\openvpn.api.core.csproj", "{A6DFD819-C764-4A87-BE00-77CB9FD4DB3E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8EE58B97-8A82-4D3F-AC54-CFDBA020ADB8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{30CE7837-4F6A-42D9-8003-6D4FACF96F66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{37022CFF-ACA6-4584-9B08-7647A664BA2B}"
 	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api", "openvpn.api\openvpn.api.csproj", "{2B0AD90B-04DB-4739-B48B-39EA169461C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,30 +20,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{270ECCFF-4B1A-4513-B3A6-6AEECC6C058A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{270ECCFF-4B1A-4513-B3A6-6AEECC6C058A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{270ECCFF-4B1A-4513-B3A6-6AEECC6C058A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{270ECCFF-4B1A-4513-B3A6-6AEECC6C058A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{386DDBEC-02F0-498C-B829-6581090AE31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{386DDBEC-02F0-498C-B829-6581090AE31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{386DDBEC-02F0-498C-B829-6581090AE31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{386DDBEC-02F0-498C-B829-6581090AE31A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{475888FA-F1EE-4AC2-B3C1-AF26AA2FFD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{475888FA-F1EE-4AC2-B3C1-AF26AA2FFD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{475888FA-F1EE-4AC2-B3C1-AF26AA2FFD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{475888FA-F1EE-4AC2-B3C1-AF26AA2FFD8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6DFD819-C764-4A87-BE00-77CB9FD4DB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6DFD819-C764-4A87-BE00-77CB9FD4DB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6DFD819-C764-4A87-BE00-77CB9FD4DB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6DFD819-C764-4A87-BE00-77CB9FD4DB3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A28B024-F22B-4727-94E1-55198576763F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A28B024-F22B-4727-94E1-55198576763F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A28B024-F22B-4727-94E1-55198576763F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A28B024-F22B-4727-94E1-55198576763F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27505B8C-8557-407E-856E-0950559FC92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27505B8C-8557-407E-856E-0950559FC92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27505B8C-8557-407E-856E-0950559FC92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27505B8C-8557-407E-856E-0950559FC92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0AD90B-04DB-4739-B48B-39EA169461C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0AD90B-04DB-4739-B48B-39EA169461C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0AD90B-04DB-4739-B48B-39EA169461C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0AD90B-04DB-4739-B48B-39EA169461C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{270ECCFF-4B1A-4513-B3A6-6AEECC6C058A} = {9A019C40-F991-4333-8F2B-EA24541D8B75}
-		{386DDBEC-02F0-498C-B829-6581090AE31A} = {33D5556A-B480-4F0C-B30F-AD7DBDEFFD6C}
-		{475888FA-F1EE-4AC2-B3C1-AF26AA2FFD8A} = {8EE58B97-8A82-4D3F-AC54-CFDBA020ADB8}
-		{A6DFD819-C764-4A87-BE00-77CB9FD4DB3E} = {58805446-3B5B-4760-A03F-0650234ABDD0}
 	EndGlobalSection
 EndGlobal
