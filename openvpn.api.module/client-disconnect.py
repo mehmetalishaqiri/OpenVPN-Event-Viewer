@@ -30,7 +30,7 @@ import os
 import socket
 import OpenVpnApi
 
-api = OpenVpnApi.RestAPI('http://192.168.88.3:8082/api/logs')
+api = OpenVpnApi.RestAPI('http://localhost:65444/api/events')
 
 event_type = 'Disconnect'
 server = 'OpenVpnServer'
