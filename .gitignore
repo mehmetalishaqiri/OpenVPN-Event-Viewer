@@ -183,6 +183,9 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
-# Office Temp Files
+
 ~$*
 openvpn.api.module/.idea/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
