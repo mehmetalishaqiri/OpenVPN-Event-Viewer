@@ -36,7 +36,8 @@ namespace openvpn.api.Controllers
     {
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            var currentUser = System.Web.HttpContext.Current.Session["ExternalLoginModel"] as openvpn.api.core.auth.ExternalLoginModel;
+            if (User.Identity.IsAuthenticated && currentUser != null)
             {
                 return RedirectToAction("Index", "Dashboard", new { area = "Account" });
             }

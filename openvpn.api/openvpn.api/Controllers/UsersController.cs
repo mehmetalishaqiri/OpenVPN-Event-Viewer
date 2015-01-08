@@ -32,6 +32,7 @@ using System.Web.Http;
 using openvpn.api.common.domain;
 using openvpn.api.core.controllers;
 using Raven.Client;
+using openvpn.api.core.auth;
 
 namespace openvpn.api.Controllers
 {

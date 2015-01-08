@@ -24,31 +24,28 @@
 
 using System.Web;
 using System.Web.Mvc;
-using openvpn.api.core.auth;
+using System.Web.Routing;
 
-namespace openvpn.api.Areas.Account.Controllers
+namespace openvpn.api.core.auth
 {
-    [Guardian]
-    public class ProfileController : Controller
+    public class Guardian : AuthorizeAttribute
     {
-        // GET: Account/Profile
-        public ActionResult Index()
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var profile = Session["ExternalLoginModel"] as openvpn.api.core.auth.ExternalLoginModel;
-            return View(profile);
-        }
+            base.OnAuthorization(filterContext);
 
-
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-
-            var ctx = Request.GetOwinContext();
-            var authenticationManager = ctx.Authentication;
-            authenticationManager.SignOut();
-
-
-            return RedirectToAction("Index", "Home", new { area = "" });
+            var isAuthorized = base.AuthorizeCore(filterContext.HttpContext);
+            var currentUser = HttpContext.Current.Session["ExternalLoginModel"] as openvpn.api.core.auth.ExternalLoginModel;
+            if (!isAuthorized || currentUser == null)
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                     new RouteValueDictionary 
+                        {
+                            { "action", "Index" },
+                            { "controller", "Home" },
+                            { "area", ""}
+                        });
+            }
         }
     }
 }

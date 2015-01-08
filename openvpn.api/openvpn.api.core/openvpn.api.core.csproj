@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="auth\ExternalLoginModel.cs" />
     <Compile Include="auth\GoogleAuthProvider.cs" />
+    <Compile Include="auth\Guardian.cs" />
     <Compile Include="controllers\RavenDbApiController.cs" />
     <Compile Include="formatters\BrowserJsonFormatter.cs" />
     <Compile Include="auth\AuthenticationChallengeResult.cs" />
