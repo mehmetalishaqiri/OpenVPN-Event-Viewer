@@ -1,0 +1,39 @@
+﻿<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>VpnServer</th>
+                <th>CommonName</th>
+                <th>LocalIp</th>
+                <th>RemoteIp</th>
+                <th>HostName</th>
+                <th>BytesSent</th>
+                <th>BytesReceived</th>
+                <th>Duration</th>
+                <th>EnteredOn</th>
+            </tr>
+        </thead>
+        <tbody id="eventsTable">
+            {{#Result}}
+            <tr>
+                <td>{{Id}}</td>
+                <td>{{Type}}</td>
+                <td>{{VpnServer}}</td>
+                <td>{{CommonName}}</td>
+                <td>{{LocalIp}}</td>
+                <td>{{RemoteIp}}</td>
+                <td>{{HostName}}</td>
+                <td>{{BytesSent}}</td>
+                <td>{{BytesReceived}}</td>
+                <td>{{Duration}}</td>
+                <td>{{EnteredOn}}</td>
+            </tr>
+            {{/Result}}
+        </tbody>
+    </table>
+    <div class="col-md-12 text-center">
+        <ul class="pagination pagination-lg pager" id="eventsPager"></ul>
+    </div>
+</div>

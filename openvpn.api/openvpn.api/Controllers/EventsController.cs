@@ -22,12 +22,16 @@
     SOFTWARE. 
  */
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using openvpn.api.common.domain;
 using openvpn.api.core.controllers;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Raven.Client;
+using Raven.Client.Linq;
 
 namespace openvpn.api.Controllers
 {
@@ -44,5 +48,32 @@ namespace openvpn.api.Controllers
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
+
+
+        /// <summary>
+        /// Get open vpn events for user certificates
+        /// </summary>
+        /// <param name="email">User's email address</param>
+        /// <returns>A collection of Event model</returns>
+        [HttpGet]
+        
+        public async Task<IEnumerable<Event>> GetUserEvents(string email)
+        {
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
+
+
+            if (user == null)
+                return null;
+
+            var userCertificates = user.Certificates.Select(c => c.CommonName.ToLower()).ToArray();
+
+            var query = Session.Query<Event>()
+                    .Where(r => r.CommonName.In<string>(userCertificates))
+                    .ToListAsync();
+
+
+            return await query;
+        }
+
     }
 }
