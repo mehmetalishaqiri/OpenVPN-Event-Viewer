@@ -23,31 +23,36 @@
  */
 
 using System;
-using System.Web.Mvc;
-using openvpn.api.core.http;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
+using Owin;
 
-namespace openvpn.api.Controllers
+namespace openvpn.api
 {
-    [AllowAnonymous]
-    public class HomeController : Controller
+    public partial class Startup
     {
-        public ActionResult Index()
+        private void ConfigureAuth(IAppBuilder app)
         {
-            return View();
-        }
+            var cookieOptions = new CookieAuthenticationOptions
+            {
+                LoginPath = new PathString("/Home/Login")
+            };
 
-        public ActionResult Login(string returnUrl)
-        {
-            // Request a redirect to the external login provider
-            return new AuthenticationChallengeResult("Google", Url.Action("ExternalLoginCallback", "Home", new { ReturnUrl = returnUrl }));
-        }
+            app.UseCookieAuthentication(cookieOptions);
 
-        public ActionResult ExternalLoginCallback(string returnUrl)
-        {
-            if (!String.IsNullOrEmpty(returnUrl))
-                return new RedirectResult(returnUrl);
-            else
-                return RedirectToAction("Index", "Dashboard", new {area = "Account"});
+            app.SetDefaultSignInAsAuthenticationType(cookieOptions.AuthenticationType);
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = ConfigurationManager.AppSettings["GoogleClientId"],
+                ClientSecret = ConfigurationManager.AppSettings["GoogleClientSecret"]
+            });
         }
     }
 }

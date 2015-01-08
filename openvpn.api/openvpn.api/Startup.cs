@@ -23,31 +23,20 @@
  */
 
 using System;
-using System.Web.Mvc;
-using openvpn.api.core.http;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Microsoft.Owin;
+using Owin;
 
-namespace openvpn.api.Controllers
+namespace openvpn.api
 {
-    [AllowAnonymous]
-    public class HomeController : Controller
+    [assembly: OwinStartup(typeof(Startup))]
+    public partial class Startup
     {
-        public ActionResult Index()
+        public void Configuration(IAppBuilder app)
         {
-            return View();
-        }
-
-        public ActionResult Login(string returnUrl)
-        {
-            // Request a redirect to the external login provider
-            return new AuthenticationChallengeResult("Google", Url.Action("ExternalLoginCallback", "Home", new { ReturnUrl = returnUrl }));
-        }
-
-        public ActionResult ExternalLoginCallback(string returnUrl)
-        {
-            if (!String.IsNullOrEmpty(returnUrl))
-                return new RedirectResult(returnUrl);
-            else
-                return RedirectToAction("Index", "Dashboard", new {area = "Account"});
+            ConfigureAuth(app);
         }
     }
 }
