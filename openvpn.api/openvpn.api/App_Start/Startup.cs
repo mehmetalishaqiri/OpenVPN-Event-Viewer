@@ -31,12 +31,14 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using openvpn.api.core.auth;
 using Owin;
 
 namespace openvpn.api
 {
     public partial class Startup
     {
+
         private void ConfigureAuth(IAppBuilder app)
         {
             var cookieOptions = new CookieAuthenticationOptions
@@ -48,11 +50,17 @@ namespace openvpn.api
 
             app.SetDefaultSignInAsAuthenticationType(cookieOptions.AuthenticationType);
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+            var googleOptions = new GoogleOAuth2AuthenticationOptions
             {
                 ClientId = ConfigurationManager.AppSettings["GoogleClientId"],
-                ClientSecret = ConfigurationManager.AppSettings["GoogleClientSecret"]
-            });
+                ClientSecret = ConfigurationManager.AppSettings["GoogleClientSecret"],
+                Provider = new GoogleAuthProvider()
+            };
+
+            googleOptions.Scope.Add("email");
+
+            app.UseGoogleAuthentication(googleOptions);
+            
         }
     }
 }

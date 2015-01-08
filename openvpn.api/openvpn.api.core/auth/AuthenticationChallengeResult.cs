@@ -31,7 +31,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 
-namespace openvpn.api.core.http
+namespace openvpn.api.core.auth
 {
     public class AuthenticationChallengeResult : HttpUnauthorizedResult
     {
@@ -49,6 +49,7 @@ namespace openvpn.api.core.http
         {
             var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
             context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+            
         }
     }
 }

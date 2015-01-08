@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>OpenVpn Event Viewer | @ViewBag.Title</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +8,14 @@
     <meta name="author" content="">
     <link rel="icon" href="~/favicon.ico">
 
+    <title>OpenVpn Event Viewer | @ViewBag.Title</title>
+
     <!-- Bootstrap core CSS -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="~/Content/jumbotron-narrow.css" rel="stylesheet">
-    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/dashboard.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="~/scripts/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="~/scripts/ie-emulation-modes-warning.js"></script>
@@ -25,39 +26,58 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="header">
-            <nav>
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "login-form" }))
-                {
-                    <ul class="nav nav-pills pull-right">
-                        <li role="presentation" class="active"><a href="#">Home</a></li>
-                        <li role="presentation">
-                            @Html.Hidden("loginIdentifier", "Google")
-                            <a href="@Url.Action("Login","Home")" >Login with Google</a>
-
-
-                        </li>
-                    </ul>
-                }
-            </nav>
-            <h3 class="text-muted">OpenVPN Event Viewer</h3>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Content/images/logo.png" class="logo" />
+                <a class="navbar-brand" href="@Url.Action("Index","Dashboard", new {area="Account"})">OpenVpn Event Viewer</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Index","Profile")">Profile</a></li>
+                    <li><a href="@Url.Action("Logout", "Profile")">Logout</a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="@Url.Action("Index","Dashboard")">Dashboard <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Users</a></li>
+                    <li><a href="#">Certificates</a></li>
+                    <li><a href="#">OpenVPN Events</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">@ViewBag.Title</h1>
 
+                @RenderBody()
+            </div>
+           
+        </div>
+    </div>
 
-        @RenderBody()
-
-        <footer class="footer text-center">
-            <p>&copy; Mehmetali Shaqiri (mehmetalishaqiri@gmail.com) 2014</p>
-            <p><a id="forkme_banner" href="https://github.com/spartanbeg/OpenVPN-Event-Viewer">View on GitHub</a></p>
-        </footer>
-
-    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="../../assets/js/docs.min.js"></script>*@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="~/scripts/ie10-viewport-bug-workaround.js"></script>
+    <script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

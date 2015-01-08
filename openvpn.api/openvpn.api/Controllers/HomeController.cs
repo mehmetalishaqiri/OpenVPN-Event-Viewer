@@ -23,8 +23,11 @@
  */
 
 using System;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
-using openvpn.api.core.http;
+using System.Web.Security;
+using openvpn.api.core.auth;
 
 namespace openvpn.api.Controllers
 {
@@ -33,6 +36,10 @@ namespace openvpn.api.Controllers
     {
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard", new { area = "Account" });
+            }
             return View();
         }
 
@@ -44,6 +51,20 @@ namespace openvpn.api.Controllers
 
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
+            var externalLogin = ExternalLoginModel.FromIdentity(User.Identity as ClaimsIdentity);
+
+            if (externalLogin == null)
+            {
+                return new HttpStatusCodeResult(500);
+            }
+
+
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignIn();
+            
+            Session["ExternalLoginModel"] = externalLogin;
+
             if (!String.IsNullOrEmpty(returnUrl))
                 return new RedirectResult(returnUrl);
             else
