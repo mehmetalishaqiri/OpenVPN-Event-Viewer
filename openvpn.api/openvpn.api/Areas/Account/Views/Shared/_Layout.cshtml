@@ -45,6 +45,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    @Html.Partial("_Profile")
                     <li><a href="@Url.Action("Index","Profile")">Profile</a></li>
                     <li><a href="@Url.Action("Logout", "Profile")">Logout</a></li>
                 </ul>

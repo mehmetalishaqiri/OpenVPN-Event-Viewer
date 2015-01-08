@@ -114,3 +114,9 @@ body {
     float: left;
     margin: 3px 5px 1px 10px;
 }
+
+.profileImage {
+    width: 30px;
+    height: 30px;
+    margin: 10px 5px 1px 10px;
+}

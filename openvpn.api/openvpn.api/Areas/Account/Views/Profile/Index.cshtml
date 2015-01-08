@@ -1,5 +1,35 @@
-﻿
+﻿@model openvpn.api.core.auth.ExternalLoginModel
+
+
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Areas/Account/Views/Shared/_Layout.cshtml";
 }
+
+<form>
+    
+    @if (Model != null)
+    {
+        if (!String.IsNullOrEmpty(Model.Picture))
+        {
+            <div class="form-group">
+                <img src="@Model.Picture.Replace("sz=50", "sz=350")" alt="@Model.Name" class="img-rounded">
+            </div>
+        }
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" readonly value="@Model.Name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" class="form-control" readonly value="@Model.Email">
+        </div>
+   
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            <strong>Unable to display user profile!</strong> 
+        </div>
+    }
+</form>

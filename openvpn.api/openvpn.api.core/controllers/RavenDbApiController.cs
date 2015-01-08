@@ -5,12 +5,14 @@ using System.Web.Http.Controllers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using Raven.Client;
 using Raven.Client.Document;
 
 namespace openvpn.api.core.controllers
 {
+    /// <summary>
+    /// http://ravendb.net/docs/article-page/2.0/csharp/samples/web-api/createaspnetwebapiproject
+    /// </summary>
     public abstract class RavenDbApiController : ApiController
     {
         public IDocumentStore Store
