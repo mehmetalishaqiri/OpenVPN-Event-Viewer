@@ -8,7 +8,7 @@
                 <th>Certificates</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
             {{#Result}}
             <tr>
                 <td>{{Firstname}}</td>
@@ -21,8 +21,12 @@
                         {{/Certificates}}
                     </ol>
                 </td>
+                <td></td>
             </tr>
             {{/Result}}
         </tbody>
     </table>
+    <div class="col-md-12 text-center">
+        <ul class="pagination pagination-lg pager" id="usersPager"></ul>
+    </div>
 </div>

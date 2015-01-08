@@ -120,3 +120,11 @@ body {
     height: 30px;
     margin: 10px 5px 1px 10px;
 }
+
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
