@@ -14,6 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{37022C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "openvpn.api", "openvpn.api\openvpn.api.csproj", "{2B0AD90B-04DB-4739-B48B-39EA169461C3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".shared", ".shared", "{A1AE4F16-C96A-469A-AEF7-750C37B2AB1D}"
+	ProjectSection(SolutionItems) = preProject
+		.shared\CommonAssemblyInfo.cs = .shared\CommonAssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -148,6 +148,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\.shared\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="auth\ExternalLoginModel.cs" />
     <Compile Include="auth\GoogleAuthProvider.cs" />
     <Compile Include="controllers\RavenDbApiController.cs" />
