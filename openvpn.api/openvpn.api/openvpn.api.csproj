@@ -231,8 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Account\Models\" />
-    <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,7 @@
     SOFTWARE. 
  */
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace openvpn.api.common.domain
@@ -36,5 +37,7 @@ namespace openvpn.api.common.domain
 
         [Required]
         public string Email { get; set; }
+
+        public List<Certificate> Certificates { get; set; }
     }
 }

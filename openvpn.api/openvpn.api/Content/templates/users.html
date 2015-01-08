@@ -5,6 +5,7 @@
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
+                <th>Certificates</th>
             </tr>
         </thead>
         <tbody>
@@ -13,6 +14,13 @@
                 <td>{{Firstname}}</td>
                 <td>{{Lastname}}</td>
                 <td>{{Email}}</td>
+                <td>
+                    <ol>
+                        {{#Certificates}}
+                        <li>{{CommonName}}</li>
+                        {{/Certificates}}
+                    </ol>
+                </td>
             </tr>
             {{/Result}}
         </tbody>

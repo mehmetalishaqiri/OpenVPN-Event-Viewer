@@ -158,6 +158,7 @@
     <Compile Include="auth\AuthenticationChallengeResult.cs" />
     <Compile Include="handlers\ApiResponse.cs" />
     <Compile Include="handlers\WrappingHandler.cs" />
+    <Compile Include="helpers\Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
