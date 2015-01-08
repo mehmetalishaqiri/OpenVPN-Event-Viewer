@@ -232,6 +232,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Models\" />
+    <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -271,8 +272,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\Manage\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -288,6 +292,7 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\jumbotron-narrow.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\templates\users.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -316,7 +321,11 @@
     <Content Include="Areas\Account\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Account\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Account\Views\Shared\_Profile.cshtml" />
+    <Content Include="Scripts\mustache.min.js" />
+    <Content Include="Views\Shared\_Profile.cshtml" />
+    <Content Include="Areas\Manage\Views\web.config" />
+    <Content Include="Areas\Manage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\Users\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ie-emulation-modes-warning.js" />
     <Content Include="Scripts\ie10-viewport-bug-workaround.js" />
@@ -342,7 +351,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Areas\Account\Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\openvpn.api.common\openvpn.api.common.csproj">

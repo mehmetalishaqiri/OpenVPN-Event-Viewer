@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using openvpn.api.core.formatters;
+using openvpn.api.core.handlers;
 
 namespace openvpn.api
 {
@@ -23,6 +24,8 @@ namespace openvpn.api
 
             // make sure browsers get JSON without compromising content negotiation from clients that actually want XML.
             config.Formatters.Add(new BrowserJsonFormatter());
+
+            config.MessageHandlers.Add(new WrappingHandler());
         }
     }
 }

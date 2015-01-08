@@ -22,16 +22,37 @@
     SOFTWARE. 
  */
 
-namespace openvpn.api.common.domain
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using openvpn.api.common.domain;
+using openvpn.api.core.controllers;
+using Raven.Client;
+
+namespace openvpn.api.Controllers
 {
-    public enum EventType
+    public class UsersController : RavenDbApiController
     {
-        Connect = 1,
+        /// <summary>
+        /// Store open vpn event in RavenDb document store.
+        /// </summary>
+        public async Task<IEnumerable<User>> Get()
+        {
+            var query = Session.Query<User>().OrderBy(u => u.Firstname).ToListAsync();
 
-        Disconnect = 2,
+            return await query;
+        }
 
-        Down = 3,
 
-        Up = 4
+        public async Task<HttpResponseMessage> Post([FromBody]User userModel)
+        {
+            await Session.StoreAsync(userModel);
+
+            return new HttpResponseMessage(HttpStatusCode.Created);
+        }
     }
 }
