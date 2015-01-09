@@ -39,9 +39,20 @@ namespace openvpn.api.Controllers
 {
     public class UsersController : RavenDbApiController
     {
+
         /// <summary>
-        /// Store open vpn event in RavenDb document store.
+        /// Get requested user by email
         /// </summary>
+        [Route("api/users/{email}")]
+        public async Task<User> Get(string email)
+        {
+            return await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
+        }
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        [Route("api/users/all")]
         public async Task<IEnumerable<User>> Get()
         {
             var query = Session.Query<User>().OrderBy(u => u.Firstname).ToListAsync();
@@ -62,17 +73,34 @@ namespace openvpn.api.Controllers
 
             return ApiStatusCode.Saved;
         }
-        
+
         [HttpDelete]
         public async Task<ApiStatusCode> Delete(string id)
         {
             var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == id);
 
-            if (user == null) 
+            if (user == null)
                 return ApiStatusCode.Error;
 
             Session.Delete<User>(user);
             return ApiStatusCode.Deleted;
+        }
+
+
+        [HttpPut]
+        public async Task<ApiStatusCode> Put(User userModel)
+        {
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == userModel.Email);
+
+            if (user != null)
+            {
+                user.Firstname = userModel.Firstname;
+                user.Lastname = userModel.Lastname;
+                await Session.SaveChangesAsync();
+
+                return ApiStatusCode.Saved;
+            }
+            return ApiStatusCode.Error;
         }
     }
 }

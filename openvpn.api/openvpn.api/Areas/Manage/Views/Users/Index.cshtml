@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="page-header">
-            <h3>Create new User</h3>
+            <h3><span id="userFormTitle">Create new User</span></h3>
         </div>
         <form id="userForm">
             <div class="form-group">
@@ -23,6 +23,7 @@
             <div id="message" class="form-group"></div>
             <div class="form-actions">
                 <button type="button" class="btn btn-primary" id="saveUser">Save User</button>
+                <button type="button" class="btn btn-default" id="refresh">Cancel</button>
             </div>
 
         </form>
@@ -58,16 +59,17 @@
 
 
         $(function () {
-            var url = '@Url.RouteUrl("DefaultApi", new {httproute = "", controller = "users"})';
+            var editMode = false;
+            var url = '/api/users/all/';
 
             var tmpl, // Main template HTML
                 tdata = {} // JSON data object that feeds the template
 
-            var getUsers = function () {
+            var getUsers = function() {
                 // Load the HTML template
                 $.get(
                     '/content/templates/users.html',
-                    function (d) {
+                    function(d) {
                         tmpl = d;
                     }
                 );
@@ -75,36 +77,61 @@
                 // Retrieve the server data and then initialise the page
                 $.getJSON(
                     url,
-                    function (d) {
+                    function(d) {
                         $.extend(tdata, d);
                     }
                 );
             };
 
             // Initialise page
-            var initPage = function () {
+            var initPage = function() {
 
                 getUsers();
 
                 // When AJAX calls are complete parse the template
                 // replacing mustache tags with vars
-                $(document).ajaxStop(function () {
+                $(document).ajaxStop(function() {
                     var renderedPage = Mustache.to_html(tmpl, tdata);
                     $("#users").html(renderedPage);
 
                     $('#usersTable').pageMe({ pagerSelector: '#usersPager', showPrevNext: true, hidePageNumbers: false, perPage: 4 });
 
 
-                    $('button[name="deleteUser"]').on('click', function (e) {
+                    $('button[name="editUser"]').on('click', function(e) {
+                        var email = $(this).attr('rel');
+
+                        $.ajax({
+                            url: encodeURI("/api/users/" + email + "/"),
+                            type: 'GET',
+                            contentType: "application/json;charset=utf-8",
+                            success: function(response, textStatus, jqXHR) {
+                                if (response.StatusCode == 200) {
+                                    $('#firstname').val(response.Result.Firstname);
+                                    $('#lastname').val(response.Result.Lastname);
+                                    $('#email').val(response.Result.Email);
+                                    editMode = true;
+                                    $('#userFormTitle').html('Update user details');
+                                    $('#email').prop('disabled', true);
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                $('#usersmessage').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>' + errorThrown + '</strong></div>');
+                                $('#modal-dialog').modal('hide');
+                            }
+                        });
+                    });
+
+
+                    $('button[name="deleteUser"]').on('click', function(e) {
                         var email = $(this).attr('rel');
                         e.preventDefault();
-                        $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function (e) {
+                        $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function(e) {
                             $.ajax({
                                 url: encodeURI("/api/users/" + email + "/"),
                                 type: 'DELETE',
                                 contentType: "application/json;charset=utf-8",
                                 data: email,
-                                success: function (response, textStatus, jqXHR) {
+                                success: function(response, textStatus, jqXHR) {
                                     if (response.StatusCode == 200) {
                                         if (response.Result == 3) {
                                             $('#usersmessage').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>User deleted successfully!</strong></div>');
@@ -116,7 +143,7 @@
                                     }
                                     $('#modal-dialog').modal('hide');
                                 },
-                                error: function (jqXHR, textStatus, errorThrown) {
+                                error: function(jqXHR, textStatus, errorThrown) {
                                     $('#usersmessage').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>' + errorThrown + '</strong></div>');
                                     $('#modal-dialog').modal('hide');
                                 }
@@ -141,15 +168,15 @@
                         email: true
                     }
                 },
-                highlight: function (element) {
+                highlight: function(element) {
                     $(element).closest('.form-group').addClass('has-error');
                 },
-                unhighlight: function (element) {
+                unhighlight: function(element) {
                     $(element).closest('.form-group').removeClass('has-error');
                 },
                 errorElement: 'span',
                 errorClass: 'help-block',
-                errorPlacement: function (error, element) {
+                errorPlacement: function(error, element) {
                     if (element.parent('.input-group').length) {
                         error.insertAfter(element.parent());
                     } else {
@@ -159,7 +186,24 @@
             });
 
 
-            $('#saveUser').on('click', function () {
+
+          
+            var refresh = function() {
+                $('#firstname').val('');
+                $('#lastname').val('');
+                $('#email').val('');
+                editMode = false;
+                $('#userFormTitle').html('Create new User');
+                $('#email').prop('disabled', false);
+            };
+
+            $('#refresh').on('click', function () {
+                refresh();
+            });
+
+
+
+            $('#saveUser').on('click', function() {
                 if ($('#userForm').valid()) {
 
                     var user = {
@@ -167,26 +211,23 @@
                         Lastname: $('#lastname').val(),
                         Email: $('#email').val()
                     };
-
-
+                    
                     $.ajax({
                         url: "/api/users",
-                        type: "POST",
+                        type: (editMode == true) ? "PUT" : "POST",
                         data: user,
-                        success: function (response, textStatus, jqXHR) {
+                        success: function(response, textStatus, jqXHR) {
                             if (response.StatusCode == 200) {
                                 if (response.Result == 1) {
-                                    $('#message').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>User created successfully!</strong></div>');
-
+                                    $('#message').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>User ' + ((editMode == true) ? "updated" : "created") + ' successfully!</strong></div>');
                                     getUsers();
-                                } else if (response.Result == 2) {
-                                    $('#message').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>A user with the same email address already exists!</strong></div>');
+                                    refresh();
                                 }
                             }
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, textStatus, errorThrown) {
                             $('#message').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>' + errorThrown + '</strong></div>');
-                            
+
                         }
                     });
                 }
