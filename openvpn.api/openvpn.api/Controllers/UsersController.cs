@@ -66,18 +66,24 @@ namespace openvpn.api.Controllers
         {
             var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == userModel.Email);
 
-            if (user != null)
-                return ApiStatusCode.Exists;
+            if (ModelState.IsValid)
+            {
 
-            await Session.StoreAsync(userModel);
+                if (user != null)
+                    return ApiStatusCode.Exists;
 
-            return ApiStatusCode.Saved;
+                await Session.StoreAsync(userModel);
+
+                return ApiStatusCode.Saved;
+            }
+            return ApiStatusCode.Error;
         }
 
         [HttpDelete]
-        public async Task<ApiStatusCode> Delete(string id)
+        [Route("api/users/{email}")]
+        public async Task<ApiStatusCode> Delete(string email)
         {
-            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == id);
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
                 return ApiStatusCode.Error;

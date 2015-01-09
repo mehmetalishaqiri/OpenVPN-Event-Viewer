@@ -20,12 +20,31 @@
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
             </div>
+           
+            <div class="form-group" id="fields">
+                <label class="control-label" for="field1">Certificates:</label>
+                <div class="controls">
+                    <div id="certificatesForm">
+                        <div class="entry input-group">
+                            <input class="form-control" name="fields[]" type="text" placeholder="Common name" required />
+                            <span class="input-group-btn">
+                                <button class="btn btn-success btn-add" type="button">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                <small>Press <span class="glyphicon glyphicon-plus gs"></span> to add another form field :)</small>
+            </div>
             <div id="message" class="form-group"></div>
             <div class="form-actions">
                 <button type="button" class="btn btn-primary" id="saveUser">Save User</button>
                 <button type="button" class="btn btn-default" id="refresh">Cancel</button>
             </div>
-
         </form>
     </div>
     <div class="col-md-6">
@@ -57,8 +76,30 @@
     <script src="~/Scripts/jquery.pageMe.js"></script>
     <script type="text/javascript">
 
+        $(function() {
+            $(document).on('click', '.btn-add', function(e) {
+                e.preventDefault();
 
-        $(function () {
+                var controlForm = $('#certificatesForm'),
+                    currentEntry = $(this).parents('.entry:first'),
+                    newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+
+                newEntry.find('input').val('');
+                controlForm.find('.entry:not(:last) .btn-add')
+                    .removeClass('btn-add').addClass('btn-remove')
+                    .removeClass('btn-success').addClass('btn-danger')
+                    .html('<span class="glyphicon glyphicon-minus"></span>');
+            }).on('click', '.btn-remove', function(e) {
+                $(this).parents('.entry:first').remove();
+
+                e.preventDefault();
+                return false;
+            });
+        });
+
+
+        $(function() {
             var editMode = false;
             var url = '/api/users/all/';
 
@@ -130,7 +171,6 @@
                                 url: encodeURI("/api/users/" + email + "/"),
                                 type: 'DELETE',
                                 contentType: "application/json;charset=utf-8",
-                                data: email,
                                 success: function(response, textStatus, jqXHR) {
                                     if (response.StatusCode == 200) {
                                         if (response.Result == 3) {
@@ -186,8 +226,6 @@
             });
 
 
-
-          
             var refresh = function() {
                 $('#firstname').val('');
                 $('#lastname').val('');
@@ -197,21 +235,37 @@
                 $('#email').prop('disabled', false);
             };
 
-            $('#refresh').on('click', function () {
+            $('#refresh').on('click', function() {
                 refresh();
             });
-
 
 
             $('#saveUser').on('click', function() {
                 if ($('#userForm').valid()) {
 
+                    var certificates = [];
+
+                  
+
                     var user = {
                         Firstname: $('#firstname').val(),
                         Lastname: $('#lastname').val(),
-                        Email: $('#email').val()
+                        Email: $('#email').val(),
+                        Certificates: []
                     };
+
+
+                    $('input[name="fields[]"]').each(function () {
+                        if ($(this).val() != '') {
+                            var certificate = {
+                                CommonName: $(this).val()
+                            };
+                            user.Certificates.push(certificate);
+                        }
+                    });
+
                     
+
                     $.ajax({
                         url: "/api/users",
                         type: (editMode == true) ? "PUT" : "POST",
@@ -232,6 +286,7 @@
                     });
                 }
             });
+
 
         });
     </script>

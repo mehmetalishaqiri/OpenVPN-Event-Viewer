@@ -40,5 +40,11 @@ namespace openvpn.api.common.domain
         public string Email { get; set; }
 
         public List<Certificate> Certificates { get; set; }
+
+        public User()
+        {
+            Certificates = new List<Certificate>();
+        }
+
     }
 }
