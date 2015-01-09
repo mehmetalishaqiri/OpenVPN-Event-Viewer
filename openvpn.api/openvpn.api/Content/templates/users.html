@@ -6,6 +6,7 @@
                 <th>Lastname</th>
                 <th>Email</th>
                 <th>Certificates</th>
+                <th></th>
             </tr>
         </thead>
         <tbody id="usersTable">
@@ -21,7 +22,9 @@
                         {{/Certificates}}
                     </ol>
                 </td>
-                <td></td>
+                <td>
+                    <button class='btn btn-danger btn-xs' type="button" name="deleteUser" value="delete" rel="{{Email}}"><span class="icon-remove"></span> delete</button>
+                </td>
             </tr>
             {{/Result}}
         </tbody>

@@ -325,6 +325,7 @@
     <Content Include="Areas\Account\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
     <Content Include="Scripts\jquery.pageMe.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\mustache.min.js" />
     <Content Include="Views\Shared\_Profile.cshtml" />
     <Content Include="Areas\Manage\Views\web.config" />
@@ -366,6 +367,10 @@
     <ProjectReference Include="..\openvpn.api.core\openvpn.api.core.csproj">
       <Project>{27505b8c-8557-407e-856e-0950559fc92d}</Project>
       <Name>openvpn.api.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\openvpn.api.shared\openvpn.api.shared.csproj">
+      <Project>{67577bdd-9694-4f04-9bab-53a14f4b3f98}</Project>
+      <Name>openvpn.api.shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

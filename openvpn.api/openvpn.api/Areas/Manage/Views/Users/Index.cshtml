@@ -2,11 +2,57 @@
     ViewBag.Title = "Users";
 }
 
-<div id="users">
-    <button class="btn btn-lg btn-default" style="margin:0 auto;"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3>Create new User</h3>
+        </div>
+        <form id="userForm">
+            <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" id="firstname" name="firstname" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" id="lastname" name="lastname" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            </div>
+            <div id="message" class="form-group"></div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" id="saveUser">Save User</button>
+            </div>
 
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3>All users</h3>
+        </div>
+        <div id="users">
+            <button class="btn btn-lg btn-default" style="margin:0 auto;"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+        </div>
+    </div>
+</div>
+<div id="modal-dialog" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p>Do you want to delete this user?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="delete">Delete</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.pageMe.js"></script>
     <script type="text/javascript">
 
@@ -17,9 +63,7 @@
             var tmpl, // Main template HTML
                 tdata = {} // JSON data object that feeds the template
 
-            // Initialise page
-            var initPage = function () {
-
+            var getUsers = function () {
                 // Load the HTML template
                 $.get(
                     '/content/templates/users.html',
@@ -35,6 +79,12 @@
                         $.extend(tdata, d);
                     }
                 );
+            };
+
+            // Initialise page
+            var initPage = function () {
+
+                getUsers();
 
                 // When AJAX calls are complete parse the template
                 // replacing mustache tags with vars
@@ -43,8 +93,105 @@
                     $("#users").html(renderedPage);
 
                     $('#usersTable').pageMe({ pagerSelector: '#usersPager', showPrevNext: true, hidePageNumbers: false, perPage: 4 });
+
+
+                    $('button[name="deleteUser"]').on('click', function (e) {
+                        var email = $(this).attr('rel');
+                        e.preventDefault();
+                        $('#modal-dialog').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function (e) {
+                            $.ajax({
+                                url: encodeURI("/api/users/" + email + "/"),
+                                type: 'DELETE',
+                                contentType: "application/json;charset=utf-8",
+                                data: email,
+                                success: function (response, textStatus, jqXHR) {
+                                    if (response.StatusCode == 200) {
+                                        if (response.Result == 3) {
+                                            $('#usersmessage').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>User deleted successfully!</strong></div>');
+
+                                            getUsers();
+                                        } else if (response.Result == 4) {
+                                            $('#usersmessage').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Unable to delete user!</strong></div>');
+                                        }
+                                    }
+                                    $('#modal-dialog').modal('hide');
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    $('#usersmessage').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>' + errorThrown + '</strong></div>');
+                                    $('#modal-dialog').modal('hide');
+                                }
+                            });
+                        });
+                    });
+
                 });
             }();
+
+
+            $('#userForm').validate({
+                rules: {
+                    firstname: {
+                        required: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                },
+                highlight: function (element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function (element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                },
+                errorElement: 'span',
+                errorClass: 'help-block',
+                errorPlacement: function (error, element) {
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+
+            $('#saveUser').on('click', function () {
+                if ($('#userForm').valid()) {
+
+                    var user = {
+                        Firstname: $('#firstname').val(),
+                        Lastname: $('#lastname').val(),
+                        Email: $('#email').val()
+                    };
+
+
+                    $.ajax({
+                        url: "/api/users",
+                        type: "POST",
+                        data: user,
+                        success: function (response, textStatus, jqXHR) {
+                            if (response.StatusCode == 200) {
+                                if (response.Result == 1) {
+                                    $('#message').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>User created successfully!</strong></div>');
+
+                                    getUsers();
+                                } else if (response.Result == 2) {
+                                    $('#message').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>A user with the same email address already exists!</strong></div>');
+                                }
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $('#message').show().html('<div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>' + errorThrown + '</strong></div>');
+                            
+                        }
+                    });
+                }
+            });
+
         });
     </script>
 }

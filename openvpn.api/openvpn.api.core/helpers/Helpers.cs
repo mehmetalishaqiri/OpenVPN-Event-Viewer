@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.WebPages.Html;
 
 namespace openvpn.api.core.helpers
 {
@@ -22,5 +16,6 @@ namespace openvpn.api.core.helpers
             
             return admins.Any() && admins.Contains(currentUser.Email);
         }
+
     }
 }

@@ -24,11 +24,14 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace openvpn.api.common.domain
 {
     public class User
     {
+        public int Id { get; set; }
+
         [Required]
         public string Firstname { get; set; }
 

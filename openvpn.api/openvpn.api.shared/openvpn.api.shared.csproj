@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A28B024-F22B-4727-94E1-55198576763F}</ProjectGuid>
+    <ProjectGuid>{67577BDD-9694-4F04-9BAB-53A14F4B3F98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>openvpn.api.common</RootNamespace>
-    <AssemblyName>openvpn.api.common</AssemblyName>
+    <RootNamespace>openvpn.api.shared</RootNamespace>
+    <AssemblyName>openvpn.api.shared</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,20 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\.shared\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="domain\Certificate.cs" />
-    <Compile Include="domain\Event.cs" />
-    <Compile Include="domain\EventType.cs" />
-    <Compile Include="domain\User.cs" />
+    <Compile Include="ApiStatusCode.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\openvpn.api.shared\openvpn.api.shared.csproj">
-      <Project>{67577bdd-9694-4f04-9bab-53a14f4b3f98}</Project>
-      <Name>openvpn.api.shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

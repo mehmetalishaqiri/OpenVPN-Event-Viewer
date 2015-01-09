@@ -69,6 +69,7 @@ namespace openvpn.api.Controllers
 
             var query = Session.Query<Event>()
                     .Where(r => r.CommonName.In<string>(userCertificates))
+                    .OrderByDescending(e=>e.EnteredOn)
                     .ToListAsync();
 
 

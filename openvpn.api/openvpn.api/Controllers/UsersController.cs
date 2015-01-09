@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using openvpn.api.common.domain;
 using openvpn.api.core.controllers;
+using openvpn.api.shared;
 using Raven.Client;
 using openvpn.api.core.auth;
 
@@ -49,11 +50,29 @@ namespace openvpn.api.Controllers
         }
 
 
-        public async Task<HttpResponseMessage> Post([FromBody]User userModel)
+        [HttpPost]
+        public async Task<ApiStatusCode> Post([FromBody]User userModel)
         {
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == userModel.Email);
+
+            if (user != null)
+                return ApiStatusCode.Exists;
+
             await Session.StoreAsync(userModel);
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            return ApiStatusCode.Saved;
+        }
+        
+        [HttpDelete]
+        public async Task<ApiStatusCode> Delete(string id)
+        {
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == id);
+
+            if (user == null) 
+                return ApiStatusCode.Error;
+
+            Session.Delete<User>(user);
+            return ApiStatusCode.Deleted;
         }
     }
 }

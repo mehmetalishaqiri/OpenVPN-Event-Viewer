@@ -22,16 +22,22 @@
     SOFTWARE. 
  */
 
+using System.ComponentModel;
+
 namespace openvpn.api.common.domain
 {
     public enum EventType
     {
+        [Description("Connect")]
         Connect = 1,
 
+        [Description("Disconnect")]
         Disconnect = 2,
 
+        [Description("Down")]
         Down = 3,
 
+        [Description("Up")]
         Up = 4
     }
 }

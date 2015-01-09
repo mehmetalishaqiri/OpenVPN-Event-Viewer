@@ -23,6 +23,7 @@
  */
 
 using System;
+using openvpn.api.shared;
 
 namespace openvpn.api.common.domain
 {
@@ -45,6 +46,11 @@ namespace openvpn.api.common.domain
         /// 
         /// </summary>
         public EventType Type { get; set; }
+
+        public string TypeDescription
+        {
+            get { return Type.GetEnumDescription(); }
+        }
 
         /// <summary>
         /// 

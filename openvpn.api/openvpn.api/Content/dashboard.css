@@ -128,3 +128,10 @@ body {
     margin-right: auto;
     margin-left: auto;
 }
+
+
+.form-actions {
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+}

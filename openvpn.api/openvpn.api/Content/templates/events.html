@@ -2,15 +2,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Type</th>
-                <th>VpnServer</th>
+                <th>Vpn Server</th>
+                <th>Event Type</th>
                 <th>CommonName</th>
-                <th>LocalIp</th>
-                <th>RemoteIp</th>
-                <th>HostName</th>
-                <th>BytesSent</th>
-                <th>BytesReceived</th>
+                <th>Local IP</th>
+                <th>Remote IP</th>
+                <th>Bytes Sent</th>
+                <th>Bytes Received</th>
                 <th>Duration</th>
                 <th>EnteredOn</th>
             </tr>
@@ -18,13 +16,11 @@
         <tbody id="eventsTable">
             {{#Result}}
             <tr>
-                <td>{{Id}}</td>
-                <td>{{Type}}</td>
                 <td>{{VpnServer}}</td>
+                <td>{{TypeDescription}}</td>                
                 <td>{{CommonName}}</td>
                 <td>{{LocalIp}}</td>
                 <td>{{RemoteIp}}</td>
-                <td>{{HostName}}</td>
                 <td>{{BytesSent}}</td>
                 <td>{{BytesReceived}}</td>
                 <td>{{Duration}}</td>
