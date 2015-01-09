@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using openvpn.api.core.formatters;
 using openvpn.api.core.handlers;
+using System.Web.Routing;
 
 namespace openvpn.api
 {
@@ -22,14 +23,7 @@ namespace openvpn.api
                 defaults: new { id = RouteParameter.Optional }
             );
 
-
-            //config.Routes.MapHttpRoute(
-            //    name: "UserOpenVpnEvents",
-            //    routeTemplate: "api/{controller}/{action}/{id}",
-            //    defaults: new { controller = "events", action = "GetUserEvents", id = RouteParameter.Optional }
-            //);
-
-            // make sure browsers get JSON without compromising content negotiation from clients that actually want XML.
+             // make sure browsers get JSON without compromising content negotiation from clients that actually want XML.
             config.Formatters.Add(new BrowserJsonFormatter());
 
             config.MessageHandlers.Add(new WrappingHandler());

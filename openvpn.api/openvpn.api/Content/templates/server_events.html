@@ -1,0 +1,23 @@
+﻿<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Vpn Server</th>
+                <th>Event Type</th>
+                <th>EnteredOn</th>
+            </tr>
+        </thead>
+        <tbody id="eventsTable">
+            {{#Result}}
+            <tr>
+                <td>{{VpnServer}}</td>
+                <td>{{TypeDescription}}</td>
+                <td>{{EnteredOn}}</td>
+            </tr>
+            {{/Result}}
+        </tbody>
+    </table>
+    <div class="col-md-12 text-center">
+        <ul class="pagination pagination-lg pager" id="eventsPager"></ul>
+    </div>
+</div>

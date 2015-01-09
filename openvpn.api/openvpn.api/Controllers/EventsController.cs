@@ -22,6 +22,7 @@
     SOFTWARE. 
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,12 +52,28 @@ namespace openvpn.api.Controllers
 
 
         /// <summary>
-        /// Get open vpn events for user certificates
+        /// Get all open vpn client events
+        /// </summary>
+        /// <returns>A collection of Event model</returns>
+        [Route("api/events/clients/all")]
+        public async Task<IEnumerable<Event>> GetAllClientEvents()
+        {
+
+            var query = Session.Query<Event>()
+                    .Where(r => r.Type == EventType.Connect || r.Type == EventType.Disconnect)
+                    .OrderByDescending(e => e.EnteredOn)
+                    .ToListAsync();
+
+            return await query;
+        }
+
+
+        /// <summary>
+        /// Get open vpn client events for user certificates
         /// </summary>
         /// <param name="email">User's email address</param>
         /// <returns>A collection of Event model</returns>
-        [HttpGet]
-        
+        [Route("api/events/client/all/{email}")]
         public async Task<IEnumerable<Event>> GetUserEvents(string email)
         {
             var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
@@ -68,11 +85,51 @@ namespace openvpn.api.Controllers
             var userCertificates = user.Certificates.Select(c => c.CommonName.ToLower()).ToArray();
 
             var query = Session.Query<Event>()
-                    .Where(r => r.CommonName.In<string>(userCertificates))
+                    .Where(r => r.CommonName.In<string>(userCertificates) && (r.Type == EventType.Connect || r.Type == EventType.Disconnect))
                     .OrderByDescending(e=>e.EnteredOn)
                     .ToListAsync();
 
 
+            return await query;
+        }
+
+
+        /// <summary>
+        /// Get open vpn client events for user certificates for today
+        /// </summary>
+        /// <param name="email">User's email address</param>
+        /// <returns>A collection of Event model</returns>
+        [Route("api/events/client/today/{email}")]
+        public async Task<IEnumerable<Event>> GetTodaysEvents(string email)
+        {
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
+
+
+            if (user == null)
+                return null;
+
+            var userCertificates = user.Certificates.Select(c => c.CommonName.ToLower()).ToArray();
+
+            var query = Session.Query<Event>()
+                    .Where(r => r.CommonName.In<string>(userCertificates) && r.EnteredOn.Date == DateTime.Now.Date && (r.Type == EventType.Connect || r.Type == EventType.Disconnect))
+                    .OrderByDescending(e => e.EnteredOn)
+                    .ToListAsync();
+
+            return await query;
+        }
+
+
+        /// <summary>
+        /// Get open vpn server events
+        /// </summary>
+        /// <returns>A collection of Event model</returns>
+        [Route("api/events/server/all")]
+        public async Task<IEnumerable<Event>> GetServerEvents()
+        {
+            var query = Session.Query<Event>()
+                    .Where(r => r.Type == EventType.Up || r.Type == EventType.Down)
+                    .OrderByDescending(e => e.EnteredOn)
+                    .ToListAsync();
             return await query;
         }
 

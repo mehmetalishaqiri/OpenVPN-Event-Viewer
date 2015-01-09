@@ -3,3 +3,65 @@
 }
 
 
+@{
+    var session = HttpContext.Current.Session["ExternalLoginModel"] as openvpn.api.core.auth.ExternalLoginModel;
+}
+
+@if (session != null)
+{
+    <div class="page-header">
+        <h3>OpenVpn Events - Today</h3>
+    </div>
+    <div id="events">
+        <button class="btn btn-lg btn-default" style="margin: 0 auto;"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+    </div>
+
+    @section scripts{
+        <script src="~/Scripts/jquery.pageMe.js"></script>
+        <script type="text/javascript">
+
+
+    $(function () {
+        var url = '/api/events/client/today/@session.Email/';
+
+        var tmpl, // Main template HTML
+            tdata = {} // JSON data object that feeds the template
+
+        // Initialise page
+        var initPage = function () {
+
+            // Load the HTML template
+            $.get(
+                '/content/templates/client_events.html',
+                function (d) {
+                    tmpl = d;
+                }
+            );
+
+            // Retrieve the server data and then initialise the page
+            $.getJSON(
+                url,
+                function (d) {
+                    $.extend(tdata, d);
+                }
+            );
+
+            // When AJAX calls are complete parse the template
+            // replacing mustache tags with vars
+            $(document).ajaxStop(function () {
+                var renderedPage = Mustache.to_html(tmpl, tdata);
+                $("#events").html(renderedPage);
+
+                $('#eventsTable').pageMe({ pagerSelector: '#eventsPager', showPrevNext: true, hidePageNumbers: false, perPage: 20 });
+            });
+        }();
+    });
+        </script>
+    }
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Unable to display open vpn events!</strong>
+    </div>
+}

@@ -22,23 +22,24 @@
     SOFTWARE. 
  */
 
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 
-namespace openvpn.api.common.domain
+using System.Web.Mvc;
+
+namespace openvpn.api.Areas.Manage.Controllers
 {
-    public class User
+    public class EventsController : Controller
     {
-        [Required]
-        public string Firstname { get; set; }
+        // GET: Manage/Events/Clients
+        public ActionResult Client()
+        {
+            return View();
+        }
 
-        [Required]
-        public string Lastname { get; set; }
 
-        [Required]
-        public string Email { get; set; }
-
-        public List<Certificate> Certificates { get; set; }
+        // GET: Manage/Events/Servers
+        public ActionResult Server()
+        {
+            return View();
+        }
     }
 }

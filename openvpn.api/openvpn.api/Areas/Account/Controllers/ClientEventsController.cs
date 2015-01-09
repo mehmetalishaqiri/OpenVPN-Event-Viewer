@@ -27,7 +27,7 @@ using System.Web.Mvc;
 
 namespace openvpn.api.Areas.Account.Controllers
 {
-    public class OpenVpnEventsController : Controller
+    public class ClientEventsController : Controller
     {
         // GET: Account/OpenVpnEvents
         public ActionResult Index()

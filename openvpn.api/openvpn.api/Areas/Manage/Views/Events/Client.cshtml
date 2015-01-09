@@ -19,7 +19,7 @@
 
 
             $(function () {
-                var url = '/api/events/GetUserEvents?email=@session.Email';
+                var url = '/api/events/clients/all';
 
                 var tmpl, // Main template HTML
                     tdata = {} // JSON data object that feeds the template
@@ -29,7 +29,7 @@
 
                     // Load the HTML template
                     $.get(
-                        '/content/templates/events.html',
+                        '/content/templates/client_events.html',
                         function (d) {
                             tmpl = d;
                         }

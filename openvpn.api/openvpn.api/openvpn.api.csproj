@@ -243,8 +243,9 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
+    <Compile Include="Areas\Manage\Controllers\EventsController.cs" />
     <Compile Include="Areas\Account\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Account\Controllers\OpenVpnEventsController.cs" />
+    <Compile Include="Areas\Account\Controllers\ClientEventsController.cs" />
     <Compile Include="Areas\Account\Controllers\ProfileController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -294,7 +295,8 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\jumbotron-narrow.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\templates\events.html" />
+    <Content Include="Content\templates\server_events.html" />
+    <Content Include="Content\templates\client_events.html" />
     <Content Include="Content\templates\users.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -331,7 +333,9 @@
     <Content Include="Areas\Manage\Views\web.config" />
     <Content Include="Areas\Manage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Manage\Views\Users\Index.cshtml" />
-    <Content Include="Areas\Account\Views\OpenVpnEvents\Index.cshtml" />
+    <Content Include="Areas\Account\Views\ClientEvents\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Events\Client.cshtml" />
+    <Content Include="Areas\Manage\Views\Events\Server.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ie-emulation-modes-warning.js" />
     <Content Include="Scripts\ie10-viewport-bug-workaround.js" />
