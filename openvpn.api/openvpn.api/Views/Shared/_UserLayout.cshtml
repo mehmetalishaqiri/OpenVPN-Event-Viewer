@@ -50,19 +50,19 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2 col-md-1 sidebar">
+            <div class="col-sm-2 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li class="active"><a href="@Url.Action("Index", "Dashboard", new { area = "Account" })">Dashboard</a></li>
-                    <li><a href="@Url.Action("Index", "ClientEvents", new { area = "Account" })">My Client - Events</a></li>
+                    <li><a href="@Url.Action("Index", "ClientEvents", new { area = "Account" })">My Client Connections</a></li>
                     @if (Helpers.IsUserAdmin())
                     {
-                        <li><a href="@Url.Action("Client", "Events", new { area = "Manage" })">All Clients - Events</a></li>
+                        <li><a href="@Url.Action("Client", "Events", new { area = "Manage" })">All Client Connections</a></li>
                         <li><a href="@Url.Action("Server", "Events", new { area = "Manage" })">Server Events</a></li>
                         <li><a href="@Url.Action("Index", "Users", new {area = "Manage"})">Users</a></li>
                     }
                 </ul>
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">@ViewBag.Title</h1>
                 @RenderBody()
             </div>
