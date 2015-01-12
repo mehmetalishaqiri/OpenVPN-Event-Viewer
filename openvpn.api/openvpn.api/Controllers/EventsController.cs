@@ -27,12 +27,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using openvpn.api.common.domain;
+using openvpn.api.core;
 using openvpn.api.core.controllers;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using openvpn.api.core.indexes;
+using Raven.Abstractions.Indexing;
 using Raven.Client;
+using Raven.Client.Indexes;
 using Raven.Client.Linq;
+using openvpn.api.shared;
 
 namespace openvpn.api.Controllers
 {
@@ -86,7 +91,7 @@ namespace openvpn.api.Controllers
 
             var query = Session.Query<Event>()
                     .Where(r => r.CommonName.In<string>(userCertificates) && (r.Type == EventType.Connect || r.Type == EventType.Disconnect))
-                    .OrderByDescending(e=>e.EnteredOn)
+                    .OrderByDescending(e => e.EnteredOn)
                     .ToListAsync();
 
 
@@ -133,5 +138,46 @@ namespace openvpn.api.Controllers
             return await query;
         }
 
+
+        [Route("api/events/stats/all")]
+        public async Task<NetworkFlowModel> GetEventStats()
+        {
+
+            var stats = await Session.Query<NetworkFlowReduceResult, NetworkFlowView>().ToListAsync();
+
+            return new NetworkFlowModel
+            {
+                Clients = stats.Select(e => e.CommonName).ToList(),
+                Series = new List<ChartSerie>
+                {
+                    new ChartSerie { name = "Download", data = stats.Select(e => (float)(e.BytesReceived / 1024) / 1024).ToArray() },
+                    new ChartSerie { name = "Upload", data = stats.Select(e => (float)(e.BytesSent / 1024) / 1024).ToArray() }
+                }
+            };
+        }
+
+        [Route("api/events/stats/{email}")]
+        public async Task<NetworkFlowModel> GetEventStats(string email)
+        {
+            var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
+            
+            if (user == null)
+                return null;
+
+            var userCertificates = user.Certificates.Select(c => c.CommonName.ToLower()).ToArray();
+
+            var stats = await Session.Query<NetworkFlowReduceResult, NetworkFlowView>()
+                .Where(r => r.CommonName.In<string>(userCertificates)).ToListAsync();
+
+            return new NetworkFlowModel
+            {
+                Clients = stats.Select(e => e.CommonName).ToList(),
+                Series = new List<ChartSerie>
+                {
+                    new ChartSerie { name = "Download", data = stats.Select(e => (float)(e.BytesReceived / 1024) / 1024).ToArray() },
+                    new ChartSerie { name = "Upload", data = stats.Select(e => (float)(e.BytesSent / 1024) / 1024).ToArray() }
+                }
+            };
+        }
     }
 }

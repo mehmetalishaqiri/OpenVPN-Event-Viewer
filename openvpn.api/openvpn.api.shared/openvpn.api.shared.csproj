@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="ApiStatusCode.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="NetworkFlowModel.cs" />
+    <Compile Include="NetworkFlowReduceResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

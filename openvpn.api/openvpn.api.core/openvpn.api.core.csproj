@@ -160,11 +160,22 @@
     <Compile Include="handlers\ApiResponse.cs" />
     <Compile Include="handlers\WrappingHandler.cs" />
     <Compile Include="helpers\Helpers.cs" />
+    <Compile Include="indexes\NetworkFlowView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\openvpn.api.common\openvpn.api.common.csproj">
+      <Project>{4a28b024-f22b-4727-94e1-55198576763f}</Project>
+      <Name>openvpn.api.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\openvpn.api.shared\openvpn.api.shared.csproj">
+      <Project>{67577bdd-9694-4f04-9bab-53a14f4b3f98}</Project>
+      <Name>openvpn.api.shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

@@ -5,8 +5,11 @@ using System.Web.Http.Controllers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using openvpn.api.core.indexes;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Client.Indexes;
+
 
 namespace openvpn.api.core.controllers
 {
@@ -23,7 +26,7 @@ namespace openvpn.api.core.controllers
         public IAsyncDocumentSession Session { get; set; }
 
         private readonly Lazy<IDocumentStore> _documentStore = new Lazy<IDocumentStore>(() =>
-        {           
+        {
 
             var docStore = new DocumentStore
             {
@@ -32,10 +35,13 @@ namespace openvpn.api.core.controllers
             };
 
             docStore.Initialize();
+
+            IndexCreation.CreateIndexes(typeof(NetworkFlowView).Assembly, docStore);
+
             return docStore;
         });
 
-        
+
 
         public override async Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
@@ -48,4 +54,6 @@ namespace openvpn.api.core.controllers
             }
         }
     }
+
+    
 }
