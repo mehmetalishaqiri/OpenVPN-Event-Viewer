@@ -102,6 +102,9 @@ namespace openvpn.api.Controllers
             {
                 user.Firstname = userModel.Firstname;
                 user.Lastname = userModel.Lastname;
+
+                user.Certificates = userModel.Certificates;
+
                 await Session.SaveChangesAsync();
 
                 return ApiStatusCode.Saved;
