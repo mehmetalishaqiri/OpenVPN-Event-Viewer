@@ -161,6 +161,7 @@
     <Compile Include="handlers\ApiResponse.cs" />
     <Compile Include="handlers\WrappingHandler.cs" />
     <Compile Include="helpers\Helpers.cs" />
+    <Compile Include="helpers\VersionHtmlHelper.cs" />
     <Compile Include="indexes\NetworkFlowView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
