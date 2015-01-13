@@ -84,10 +84,33 @@ namespace openvpn.api.common.domain
         /// </summary>
         public decimal? BytesSent { get; set; }
 
+        public  string BytesSentInMb
+        {
+            get
+            {
+                if (BytesSent.HasValue)
+                    return String.Format("{0:0.00} MB", (BytesSent / 1024) / 1024);
+
+                return String.Empty;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         public decimal? BytesReceived { get; set; }
+
+
+        public string BytesReceivedInMb
+        {
+            get
+            {
+                if (BytesReceived.HasValue)
+                    return String.Format("{0:0.00} MB", (BytesReceived / 1024) / 1024);
+
+                return String.Empty;
+            }
+        }
 
         /// <summary>
         /// 

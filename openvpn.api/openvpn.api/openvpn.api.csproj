@@ -301,8 +301,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -326,6 +324,8 @@
     <Content Include="Areas\Account\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Account\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\highcharts\adapters\standalone-framework.js" />
     <Content Include="Scripts\highcharts\adapters\standalone-framework.src.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.js" />
@@ -359,9 +359,19 @@
     <Content Include="Scripts\highcharts\themes\grid.js" />
     <Content Include="Scripts\highcharts\themes\sand-signika.js" />
     <Content Include="Scripts\highcharts\themes\skies.js" />
+    <Content Include="Scripts\ie-emulation-modes-warning.js" />
+    <Content Include="Scripts\ie10-viewport-bug-workaround.js" />
+    <Content Include="Scripts\ie8-responsive-file-warning.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.pageMe.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\mustache.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Views\Shared\_Profile.cshtml" />
     <Content Include="Areas\Manage\Views\web.config" />
     <Content Include="Areas\Manage\Views\_ViewStart.cshtml" />
@@ -369,15 +379,6 @@
     <Content Include="Areas\Account\Views\ClientEvents\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Events\Client.cshtml" />
     <Content Include="Areas\Manage\Views\Events\Server.cshtml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\ie-emulation-modes-warning.js" />
-    <Content Include="Scripts\ie10-viewport-bug-workaround.js" />
-    <Content Include="Scripts\ie8-responsive-file-warning.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -387,13 +388,11 @@
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -418,6 +417,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
