@@ -23,10 +23,13 @@
  */
 
 using System;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Microsoft.Owin.Security;
 using openvpn.api.core.auth;
 
 namespace openvpn.api.Controllers
@@ -50,19 +53,44 @@ namespace openvpn.api.Controllers
             return new AuthenticationChallengeResult("Google", Url.Action("ExternalLoginCallback", "Home", new { ReturnUrl = returnUrl }));
         }
 
-        public ActionResult ExternalLoginCallback(string returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var externalLogin = ExternalLoginModel.FromIdentity(User.Identity as ClaimsIdentity);
+            //var ctx = Request.GetOwinContext();
+            //var result = await ctx.Authentication.AuthenticateAsync("External");
+
+
+            var ctx = Request.GetOwinContext();
+            var result = await ctx.Authentication.AuthenticateAsync("ExternalCookie");
+            ctx.Authentication.SignOut("ExternalCookie");
+
+           
+            
+            var externalLogin = ExternalLoginModel.FromIdentity(result.Identity);
 
             if (externalLogin == null)
             {
                 return new HttpStatusCodeResult(500);
             }
 
+            var claims = result.Identity.Claims.ToList();
+            claims.Add(new Claim(ClaimTypes.AuthenticationMethod, "Google"));
 
-            var ctx = Request.GetOwinContext();
-            var authenticationManager = ctx.Authentication;
-            authenticationManager.SignIn();
+            var ci = new ClaimsIdentity(claims, "Cookie");
+            ctx.Authentication.SignIn(ci);
+          
+            //ctx.Authentication.SignOut("External");
+
+            //var claims = result.Identity.Claims.ToList();
+            //claims.Add(new Claim(ClaimTypes.AuthenticationMethod, "Google"));
+
+            //var ci = new ClaimsIdentity(claims, "External");
+            //ctx.Authentication.SignIn(ci);
+
+            //authentication.AuthenticationResponseGrant = new AuthenticationResponseGrant(result.Identity, new AuthenticationProperties()
+            //{
+            //    IsPersistent = false
+            //});
+
             
             Session["ExternalLoginModel"] = externalLogin;
 

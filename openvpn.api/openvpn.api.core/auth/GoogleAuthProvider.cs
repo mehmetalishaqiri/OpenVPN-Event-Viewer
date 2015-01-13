@@ -23,6 +23,7 @@
  */
 
 
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.Google;
@@ -41,7 +42,7 @@ namespace openvpn.api.core.auth
             context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
             context.Identity.AddClaim(new Claim("Name", context.Name));
             context.Identity.AddClaim(new Claim("Email", context.Email));
-            context.Identity.AddClaim(new Claim("Profile", context.User.GetValue("url").ToString()));
+            context.Identity.AddClaim(new Claim("Profile", context.User.GetValue("url") != null ? context.User.GetValue("url").ToString() : String.Empty));
             context.Identity.AddClaim(new Claim("Picture", context.User.GetValue("image").Value<string>("url")));
             
             return Task.FromResult(0);

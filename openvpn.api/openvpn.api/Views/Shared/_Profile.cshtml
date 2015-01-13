@@ -7,5 +7,17 @@
 @if (session != null)
 {
     <li><img src="@session.Picture" class="profileImage img-circle" /></li>
-    <li><a href="@session.Profile">@session.Name</a></li>
+    <li>
+        <a href="@session.Profile">
+
+            @if (!String.IsNullOrEmpty(session.Name))
+            {
+                <text>@session.Name</text>
+            }
+            else
+            {
+                <text>@session.Email</text>
+            }
+        </a>
+    </li>
 }

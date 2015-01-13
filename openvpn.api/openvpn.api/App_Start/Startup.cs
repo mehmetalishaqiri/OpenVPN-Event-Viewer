@@ -41,14 +41,36 @@ namespace openvpn.api
 
         private void ConfigureAuth(IAppBuilder app)
         {
-            var cookieOptions = new CookieAuthenticationOptions
+
+            // this is the normal cookie middleware
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                LoginPath = new PathString("/Home/Login")
-            };
+                AuthenticationType = "Cookie",
+                AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
+            });
 
-            app.UseCookieAuthentication(cookieOptions);
+            // these two lines of code are needed if you are using any of the external authentication middleware
+            app.Properties["Microsoft.Owin.Security.Constants.DefaultSignInAsAuthenticationType"] = "ExternalCookie";
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = "ExternalCookie",
+                AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Passive,
+            });
 
-            app.SetDefaultSignInAsAuthenticationType(cookieOptions.AuthenticationType);
+
+            //var cookieOptions = new CookieAuthenticationOptions
+            //{
+            //    LoginPath = new PathString("/Home/Login"),
+            //    AuthenticationType = "External",
+            //    AuthenticationMode = AuthenticationMode.Passive,
+            //    LogoutPath = new PathString("/Account/Profile/Logout"),
+            //    CookieName = CookieAuthenticationDefaults.CookiePrefix + "External",
+            //    ExpireTimeSpan = TimeSpan.FromMinutes(30)
+            //};
+
+            //app.UseCookieAuthentication(cookieOptions);
+
+            //app.SetDefaultSignInAsAuthenticationType(cookieOptions.AuthenticationType);
 
             var googleOptions = new GoogleOAuth2AuthenticationOptions
             {

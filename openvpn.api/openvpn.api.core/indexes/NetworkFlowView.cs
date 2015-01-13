@@ -39,7 +39,7 @@ namespace openvpn.api.core.indexes
         {
             Map = events =>
                from ev in events
-               where ev.Type == EventType.Disconnect && ev.EnteredOn.Date == DateTime.Now.Date
+               where ev.Type == EventType.Disconnect
                select new
                {
                    ev.CommonName,
@@ -50,17 +50,15 @@ namespace openvpn.api.core.indexes
 
             Reduce = results => from r in results
                                 group r by r.CommonName
-                                    into grp
-                                    select new
-                                    {
-                                        CommonName = grp.Key,
-                                        BytesReceived = grp.Sum(c => c.BytesReceived),
-                                        BytesSent = grp.Sum(c => c.BytesSent)
-                                    };
-
+                                into grp
+                                select new
+                                {
+                                    CommonName = grp.Key,
+                                    BytesReceived = grp.Sum(c => c.BytesReceived),
+                                    BytesSent = grp.Sum(c => c.BytesSent)
+                                };
 
             Index(x => x.CommonName, FieldIndexing.Default);
-
         }
     }
 }

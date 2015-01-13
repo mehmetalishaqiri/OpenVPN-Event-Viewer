@@ -142,8 +142,8 @@ namespace openvpn.api.Controllers
         [Route("api/events/stats/all")]
         public async Task<NetworkFlowModel> GetEventStats()
         {
-
-            var stats = await Session.Query<NetworkFlowReduceResult, NetworkFlowView>().ToListAsync();
+            var stats = await Session.Query<NetworkFlowReduceResult, NetworkFlowView>()
+                .ToListAsync();
 
             return new NetworkFlowModel
             {
@@ -160,14 +160,15 @@ namespace openvpn.api.Controllers
         public async Task<NetworkFlowModel> GetEventStats(string email)
         {
             var user = await Session.Query<User>().SingleOrDefaultAsync(u => u.Email == email);
-            
+
             if (user == null)
                 return null;
 
             var userCertificates = user.Certificates.Select(c => c.CommonName.ToLower()).ToArray();
 
             var stats = await Session.Query<NetworkFlowReduceResult, NetworkFlowView>()
-                .Where(r => r.CommonName.In<string>(userCertificates)).ToListAsync();
+                .Where(r => r.CommonName.In<string>(userCertificates))
+                .ToListAsync();
 
             return new NetworkFlowModel
             {

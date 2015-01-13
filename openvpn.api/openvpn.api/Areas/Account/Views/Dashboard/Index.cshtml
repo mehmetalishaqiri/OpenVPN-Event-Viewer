@@ -29,23 +29,23 @@
         <script type="text/javascript">
 
 
-    $(function () {
-        $.ajaxSetup({
-            async: true
-        });
+            $(function () {
+                $.ajaxSetup({
+                    async: true
+                });
 
-        var url = '/api/events/client/today/@session.Email/';
+                var url = '/api/events/client/today/@session.Email/';
 
-        var tmpl, // Main template HTML
-            tdata = {} // JSON data object that feeds the template
+                var tmpl, // Main template HTML
+                    tdata = {} // JSON data object that feeds the template
 
-        // Initialise page
-        var initPage = function () {
-
-
+                // Initialise page
+                var initPage = function () {
 
 
-            @if (Helpers.IsUserAdmin())
+
+
+                    @if (Helpers.IsUserAdmin())
                     {
                         <text>var statsUrl = '/api/events/stats/all';</text>
                     }
@@ -54,75 +54,78 @@
                         <text>var statsUrl = '/api/events/stats/@session.Email/';</text>
                     }
 
-            $.ajax({
-                url: statsUrl,
-                dataType: 'json',
-                async: false,
-                success: function (response) {
 
-                    $('#stats').highcharts({
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Network Bandwidth'
-                        },
-                        xAxis: {
-                            categories: response.Result.Clients
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Bandwidth (MB)'
+                    $.ajax({
+                        url: statsUrl,
+                        dataType: 'json',
+                        async: false,
+                        success: function (response) {
+                            if (typeof (response.Result) !== 'undefined') {
+                                $('#stats').highcharts({
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'Network Bandwidth'
+                                    },
+                                    xAxis: {
+                                        categories: response.Result.Clients
+                                    },
+                                    yAxis: {
+                                        min: 0,
+                                        title: {
+                                            text: 'Bandwidth (MB)'
+                                        }
+                                    },
+                                    tooltip: {
+                                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                            '<td style="padding:0"><b>{point.y:.1f} MB</b></td></tr>',
+                                        footerFormat: '</table>',
+                                        shared: true,
+                                        useHTML: true
+                                    },
+                                    plotOptions: {
+                                        column: {
+                                            pointPadding: 0.2,
+                                            borderWidth: 0
+                                        }
+                                    },
+                                    series: response.Result.Series
+                                });
                             }
-                        },
-                        tooltip: {
-                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                '<td style="padding:0"><b>{point.y:.1f} MB</b></td></tr>',
-                            footerFormat: '</table>',
-                            shared: true,
-                            useHTML: true
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2,
-                                borderWidth: 0
-                            }
-                        },
-                        series: response.Result.Series
+                        }
                     });
-                }
+
+
+
+                    // Load the HTML template
+                    $.get(
+                        '/content/templates/client_events.html',
+                        function (d) {
+                            tmpl = d;
+                        }
+                    );
+
+                    // Retrieve the server data and then initialise the page
+                    $.getJSON(
+                        url,
+                        function (d) {
+                            $.extend(tdata, d);
+                        }
+                    );
+
+                    // When AJAX calls are complete parse the template
+                    // replacing mustache tags with vars
+                    $(document).ajaxStop(function () {
+                        var renderedPage = Mustache.to_html(tmpl, tdata);
+                        $("#events").html(renderedPage);
+
+                        $('#eventsTable').pageMe({ pagerSelector: '#eventsPager', showPrevNext: true, hidePageNumbers: false, perPage: 20 });
+                    });
+
+                }();
             });
-
-
-            // Load the HTML template
-            $.get(
-                '/content/templates/client_events.html',
-                function (d) {
-                    tmpl = d;
-                }
-            );
-
-            // Retrieve the server data and then initialise the page
-            $.getJSON(
-                url,
-                function (d) {
-                    $.extend(tdata, d);
-                }
-            );
-
-            // When AJAX calls are complete parse the template
-            // replacing mustache tags with vars
-            $(document).ajaxStop(function () {
-                var renderedPage = Mustache.to_html(tmpl, tdata);
-                $("#events").html(renderedPage);
-
-                $('#eventsTable').pageMe({ pagerSelector: '#eventsPager', showPrevNext: true, hidePageNumbers: false, perPage: 20 });
-            });
-
-        }();
-    });
         </script>
     }
 }

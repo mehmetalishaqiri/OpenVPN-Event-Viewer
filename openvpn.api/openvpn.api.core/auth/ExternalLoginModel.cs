@@ -66,7 +66,7 @@ namespace openvpn.api.core.auth
             {
                 LoginProvider = providerKeyClaim.Issuer,
                 ProviderKey = providerKeyClaim.Value,
-                UserName = identity.FindFirst(ClaimTypes.Name).Value,
+                UserName = identity.FindFirst("Email").Value,
                 ExternalAccessToken = identity.FindFirst("ExternalAccessToken").Value,
                 Name = identity.FindFirst("Name").Value,
                 Email = identity.FindFirst("Email").Value,
