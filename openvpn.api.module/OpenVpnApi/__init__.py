@@ -53,7 +53,7 @@ class RestAPI(object):
 
         result = response.read()
 
-        if not result:
+        if not result.StatusCode == 201:
             print('OpenVPN event was logged successfully in RavenDB Document Store.')
         else:
             raise Exception("Unable to log OpenVPN event!")
