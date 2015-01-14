@@ -31,7 +31,8 @@ namespace openvpn.api.core.controllers
             var docStore = new DocumentStore
             {
                 Url = ConfigurationManager.AppSettings["RavenDbDocumentStoreUrl"],
-                DefaultDatabase = ConfigurationManager.AppSettings["RavenDbDefaultDatabase"]
+                DefaultDatabase = ConfigurationManager.AppSettings["RavenDbDefaultDatabase"],
+                ApiKey = ConfigurationManager.AppSettings["RavenDbApiKey"]
             };
 
             docStore.Initialize();
