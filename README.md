@@ -17,3 +17,6 @@ OpenVPN Event Viewer offers a human readable format of the open vpn connection l
 ### Demo ###
 
 A demo version of OpenVPN Event Viewer is published at AppHarbor at http://openvpneventviewer.apphb.com.
+
+### OpenVPN Event Viewer Screenshot ###
+![OpenVPN Event Viewer Screenshot](https://raw.githubusercontent.com/spartanbeg/OpenVPN-Event-Viewer/master/openvpn.api/openvpn.api/Content/images/screenshot.png)
