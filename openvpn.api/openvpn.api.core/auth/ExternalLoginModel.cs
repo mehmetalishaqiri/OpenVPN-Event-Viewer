@@ -62,16 +62,30 @@ namespace openvpn.api.core.auth
                 return null;
             }
 
+
+            var loginProvider = providerKeyClaim.Issuer;
+            var providerKey = providerKeyClaim.Value;
+            var email = identity.FindFirst("Email") != null ? identity.FindFirst("Email").Value : String.Empty;
+            var token = identity.FindFirst("ExternalAccessToken") != null
+                ? identity.FindFirst("ExternalAccessToken").Value
+                : String.Empty;
+
+            var name = identity.FindFirst("Name") != null ? identity.FindFirst("Name").Value : String.Empty;
+
+            var picture = identity.FindFirst("Picture") != null ? identity.FindFirst("Picture").Value : String.Empty;
+
+            var profile = identity.FindFirst("Profile") != null ? identity.FindFirst("Profile").Value : String.Empty;
+
             return new ExternalLoginModel
             {
-                LoginProvider = providerKeyClaim.Issuer,
-                ProviderKey = providerKeyClaim.Value,
-                UserName = identity.FindFirst("Email").Value,
-                ExternalAccessToken = identity.FindFirst("ExternalAccessToken").Value,
-                Name = identity.FindFirst("Name").Value,
-                Email = identity.FindFirst("Email").Value,
-                Picture = identity.FindFirst("Picture").Value,
-                Profile = identity.FindFirst("Profile").Value
+                LoginProvider = loginProvider,
+                ProviderKey = providerKey,
+                UserName = email,
+                ExternalAccessToken = token,
+                Name = name,
+                Email = email,
+                Picture = picture,
+                Profile = profile
             };
         }
     }

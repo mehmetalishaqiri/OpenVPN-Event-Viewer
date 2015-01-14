@@ -55,10 +55,6 @@ namespace openvpn.api.Controllers
 
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            //var ctx = Request.GetOwinContext();
-            //var result = await ctx.Authentication.AuthenticateAsync("External");
-
-
             var ctx = Request.GetOwinContext();
             var result = await ctx.Authentication.AuthenticateAsync("ExternalCookie");
             ctx.Authentication.SignOut("ExternalCookie");
@@ -77,27 +73,20 @@ namespace openvpn.api.Controllers
 
             var ci = new ClaimsIdentity(claims, "Cookie");
             ctx.Authentication.SignIn(ci);
-          
-            //ctx.Authentication.SignOut("External");
-
-            //var claims = result.Identity.Claims.ToList();
-            //claims.Add(new Claim(ClaimTypes.AuthenticationMethod, "Google"));
-
-            //var ci = new ClaimsIdentity(claims, "External");
-            //ctx.Authentication.SignIn(ci);
-
-            //authentication.AuthenticationResponseGrant = new AuthenticationResponseGrant(result.Identity, new AuthenticationProperties()
-            //{
-            //    IsPersistent = false
-            //});
-
             
             Session["ExternalLoginModel"] = externalLogin;
 
             if (!String.IsNullOrEmpty(returnUrl))
                 return new RedirectResult(returnUrl);
-            else
-                return RedirectToAction("Index", "Dashboard", new {area = "Account"});
+            
+            return RedirectToAction("Index", "Dashboard", new {area = "Account"});
+        }
+
+
+
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }

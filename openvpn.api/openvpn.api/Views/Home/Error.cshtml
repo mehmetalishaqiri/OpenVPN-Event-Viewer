@@ -1,0 +1,36 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = null;
+}
+<head>
+    <title>OpenVpn Event Viewer | An error has occurred</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/Content/jumbotron-narrow.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h3>An error has occurred!</h3>
+        </div>
+        <div class="jumbotron">
+            @if (Model != null)
+            {
+                @Model.Exception.Message
+                <hr />
+                if (!String.IsNullOrEmpty(Model.Exception.StackTrace))
+                {
+                    @Model.Exception.StackTrace
+                }
+            }
+        </div>
+    </div>
+</body>
